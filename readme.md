@@ -4,7 +4,8 @@
 Just a simple project using Django
 
 ## Features
-TODO
+- Poetry
+- Makefile
 
 ## License
 MIT
