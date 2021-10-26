@@ -11,9 +11,30 @@ class BaseModel(models.Model):
 
 
 class Project(BaseModel):
-    title = models.CharField(max_length=180)
+    title = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
     url = models.URLField(null=True, blank=True)
+    tags = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self):
         return self.title
+
+
+class Comment(BaseModel):
+    VOTE_TYPE = (
+        (1, 'up'),
+        (2, 'down')
+    )
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    body = models.TextField(null=True, blank=True)
+    value = models.IntegerField(choices=VOTE_TYPE)
+
+    def __str__(self):
+        return self.body
+
+
+class Tag(BaseModel):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
